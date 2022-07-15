@@ -5,13 +5,28 @@ import store from '@/store'
 import 'amfe-flexible'
 
 // 引入vant组件
-import { NavBar, Form, Field, Button } from 'vant'
+import {
+  NavBar,
+  Form,
+  Field,
+  Button,
+  Tabbar,
+  TabbarItem,
+  Icon,
+  Tab,
+  Tabs
+} from 'vant'
 
 // 注册vant组件
 Vue.use(NavBar)
 Vue.use(Form)
 Vue.use(Field)
 Vue.use(Button)
+Vue.use(Tabbar)
+Vue.use(TabbarItem)
+Vue.use(Icon)
+Vue.use(Tab)
+Vue.use(Tabs)
 
 Vue.config.productionTip = false
 
