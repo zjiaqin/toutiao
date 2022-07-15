@@ -14,7 +14,9 @@ import {
   TabbarItem,
   Icon,
   Tab,
-  Tabs
+  Tabs,
+  Cell,
+  CellGroup
 } from 'vant'
 
 // 注册vant组件
@@ -27,6 +29,8 @@ Vue.use(TabbarItem)
 Vue.use(Icon)
 Vue.use(Tab)
 Vue.use(Tabs)
+Vue.use(Cell)
+Vue.use(CellGroup)
 
 Vue.config.productionTip = false
 

@@ -11,15 +11,18 @@
     </van-nav-bar>
     <!-- 频道列表栏 -->
     <van-tabs v-model="active" sticky offset-top="1.22666667rem">
-      <van-tab :title="obj.name" v-for="obj in userChannel" :key="obj.id">{{
-        obj.name
-      }}</van-tab>
+      <van-tab :title="obj.name" v-for="obj in userChannel" :key="obj.id">
+        <!-- 在每一个用户频道下，渲染出对应的“文章列表组件” -->
+        <art-list :channelId="obj.id"> </art-list>
+      </van-tab>
     </van-tabs>
     <van-icon name="plus" size="16" class="plus" />
+    <!-- 文章列表 -->
   </div>
 </template>
 
 <script>
+import ArtList from '@/components/ArtList/ArtList.vue'
 import { getUserChannelAPI } from '@/api'
 export default {
   name: 'Home',
@@ -41,6 +44,9 @@ export default {
   },
   created() {
     this.initUserChannel()
+  },
+  components: {
+    ArtList
   }
 }
 </script>
