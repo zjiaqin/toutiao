@@ -11,3 +11,20 @@ export const getArtList = (id, time) =>
       timestamp: time // 时间戳
     }
   })
+export const dislikeArticle = (id) =>
+  request({
+    url: '/v1_0/article/dislikes',
+    method: 'POST',
+    data: {
+      target: id
+    }
+  })
+export const reportArticle = (target, type) =>
+  request({
+    method: 'POST',
+    url: '/v1_0/article/reports',
+    data: {
+      target,
+      type
+    }
+  })

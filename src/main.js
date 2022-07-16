@@ -22,7 +22,8 @@ import {
   CellGroup,
   List,
   PullRefresh,
-  Lazyload
+  Lazyload,
+  ActionSheet
 } from 'vant'
 
 // 注册vant组件
@@ -40,6 +41,7 @@ Vue.use(CellGroup)
 Vue.use(List)
 Vue.use(PullRefresh)
 Vue.use(Lazyload)
+Vue.use(ActionSheet)
 
 Vue.config.productionTip = false
 

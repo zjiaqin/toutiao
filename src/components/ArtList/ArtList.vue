@@ -12,7 +12,13 @@
         @load="onLoad"
         :immediate-check="false"
       >
-        <art-item v-for="obj in artlist" :key="obj.art_id" :article="obj">
+        <!-- 文章列表行组件 -->
+        <art-item
+          v-for="obj in artlist"
+          :key="obj.art_id"
+          :article="obj"
+          @remove-article="removeArticle"
+        >
         </art-item>
       </van-list>
     </van-pull-refresh>
@@ -75,6 +81,15 @@ export default {
     },
     onRefresh() {
       this.initArtList(true)
+    },
+    removeArticle(id) {
+      this.artlist = this.artlist.filter(
+        (item) => item.art_id.toString() !== id
+      )
+      if (this.artlist.length < 10) {
+        // 主动请求下一页的数据
+        this.initArtList()
+      }
     }
   },
   created() {
