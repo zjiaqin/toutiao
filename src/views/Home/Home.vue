@@ -35,7 +35,6 @@ export default {
   methods: {
     async initUserChannel() {
       const res = await getUserChannelAPI()
-      console.log(res)
       if (res.data.message === 'OK') {
         // 3. 为用户的频道列表赋值
         this.userChannel = res.data.data.channels

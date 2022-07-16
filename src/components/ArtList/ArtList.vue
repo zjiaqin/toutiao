@@ -1,7 +1,21 @@
 <template>
   <div>
-    <art-item v-for="obj in artlist" :key="obj.art_id" :article="obj">
-    </art-item>
+    <van-pull-refresh
+      v-model="isLoading"
+      @refresh="onRefresh"
+      :disabled="finished"
+    >
+      <van-list
+        v-model="loading"
+        :finished="finished"
+        finished-text="没有更多了"
+        @load="onLoad"
+        :immediate-check="false"
+      >
+        <art-item v-for="obj in artlist" :key="obj.art_id" :article="obj">
+        </art-item>
+      </van-list>
+    </van-pull-refresh>
   </div>
 </template>
 
@@ -19,20 +33,48 @@ export default {
   data() {
     return {
       timestamp: Date.now(),
-      artlist: []
+      artlist: [],
+      // loading 表示是否正在进行上拉加载的请求
+      //   每当触发 List 组件的上拉加载更多时，List 组件会自动把 loading 设为 true
+      //   每当下一页的数据请求回来以后，需要程序员手动的把 loading 设为 false，
+      //   否则：再次触发上拉加载更多时，不会发起请求！！
+      loading: false,
+      // finished 表示所有数据是否加载完毕
+      //    false 表示还有下一页的数据
+      //    true  表示所有数据都已加载完毕
+      finished: false,
+      // 下拉刷新
+      isLoading: false
     }
   },
 
   methods: {
-    async initArtList() {
+    async initArtList(isRefresh) {
       // 请求 API 接口
       const { data: res } = await getArtListAPI(this.channelId, this.timestamp)
       if (res.message === 'OK') {
         // 为时间戳重新赋值
         this.timestamp = res.data.pre_timestamp
         // 为 artlist 赋值
-        this.artlist = res.data.results
+        if (isRefresh) {
+          this.artlist = [...res.data.results, ...this.artlist]
+          this.isLoading = false
+        } else {
+          this.artlist = [...this.artlist, ...res.data.results]
+          this.loading = false
+        }
+
+        // 3. 判断所有的数据是否已加载完毕
+        if (res.data.pre_timestamp === null) {
+          this.finished = true
+        }
       }
+    },
+    onLoad() {
+      this.initArtList()
+    },
+    onRefresh() {
+      this.initArtList(true)
     }
   },
   created() {

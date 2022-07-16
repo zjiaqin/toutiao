@@ -8,7 +8,7 @@
           <span>{{ article.title }}</span>
           <!-- 单张图片 -->
           <img
-            :src="article.cover.images[0]"
+            v-lazy="article.cover.images[0]"
             alt=""
             class="thumb"
             v-if="article.cover.type === 1"
@@ -19,7 +19,7 @@
           <img
             v-for="(item, index) in article.cover.images"
             :key="index"
-            :src="item"
+            v-lazy="item"
             alt=""
             class="thumb"
           />
@@ -30,7 +30,7 @@
         <div class="label-box">
           <span
             >{{ article.aut_name }} &nbsp;&nbsp;{{ article.comm_count }}评论
-            &nbsp;&nbsp; {{ article.pubdate }}</span
+            &nbsp;&nbsp; {{ article.pubdate | dateFormat }}</span
           >
           <!-- 关闭按钮 -->
           <van-icon name="cross" />
