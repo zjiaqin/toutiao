@@ -23,7 +23,12 @@ import {
   List,
   PullRefresh,
   Lazyload,
-  ActionSheet
+  ActionSheet,
+  Popup,
+  Col,
+  Row,
+  Notify,
+  Badge
 } from 'vant'
 
 // 注册vant组件
@@ -42,6 +47,11 @@ Vue.use(List)
 Vue.use(PullRefresh)
 Vue.use(Lazyload)
 Vue.use(ActionSheet)
+Vue.use(Popup)
+Vue.use(Col)
+Vue.use(Row)
+Vue.use(Notify)
+Vue.use(Badge)
 
 Vue.config.productionTip = false
 

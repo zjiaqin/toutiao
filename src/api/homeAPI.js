@@ -28,3 +28,13 @@ export const reportArticle = (target, type) =>
       type
     }
   })
+export const getAllChannel = () =>
+  request({
+    url: '/v1_0/channels'
+  })
+export const updateUserChannel = (channels) =>
+  request({
+    url: '/v1_0/user/channels',
+    method: 'PUT',
+    data: { channels }
+  })
