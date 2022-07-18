@@ -76,10 +76,13 @@
         >
       </div>
     </div>
+    <!-- 文章的评论组件 -->
+    <art-cmt :art-id="id"> </art-cmt>
   </div>
 </template>
 
 <script>
+import ArtCmt from '@/components/ArtCmt/ArtCmt.vue'
 import {
   getArticleDetailAPI,
   followUserAPI,
@@ -91,8 +94,12 @@ export default {
   name: 'ArticleDetail',
   data() {
     return {
-      article: null
+      article: null,
+      id: this.$route.params.id
     }
+  },
+  components: {
+    ArtCmt
   },
   methods: {
     async initArticle() {
@@ -117,16 +124,14 @@ export default {
       }
     },
     async setLike() {
-      const id = this.$route.params.id
-      const { data: res } = await addLikeAPI(id)
+      const { data: res } = await addLikeAPI(this.id)
       if (res.message === 'OK') {
         this.$toast.success('点赞成功！')
         this.article.attitude = 1
       }
     },
     async setDislike() {
-      const id = this.$route.params.id
-      const res = await delLikeAPI(id)
+      const res = await delLikeAPI(this.id)
       if (res.status === 204) {
         this.$toast.success('取消点赞成功！')
         this.article.attitude = -1

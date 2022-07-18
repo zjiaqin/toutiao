@@ -12,7 +12,11 @@ import {
   followUser,
   unfollowUser,
   addLike,
-  delLike
+  delLike,
+  getCmtList,
+  addLikeCmt,
+  delLikeCmt,
+  pubComment
 } from './articleAPI'
 import { getSuggestList, getSearchResult } from './searchAPI'
 export const LoginAPI = Login
@@ -29,3 +33,7 @@ export const followUserAPI = followUser
 export const unfollowUserAPI = unfollowUser
 export const addLikeAPI = addLike
 export const delLikeAPI = delLike
+export const getCmtListAPI = getCmtList
+export const addLikeCmtAPI = addLikeCmt
+export const delLikeCmtAPI = delLikeCmt
+export const pubCommentAPI = pubComment
