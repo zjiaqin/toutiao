@@ -1,6 +1,6 @@
 <template>
   <div>
-    <van-cell>
+    <van-cell @click="toArticleDetail(artId)">
       <!-- 标题区域的插槽 -->
       <template #title>
         <div class="title-box">
@@ -139,6 +139,12 @@ export default {
         this.$emit('remove-article', this.artId)
       }
       this.show = false
+    },
+    toArticleDetail(id) {
+      this.$router.push({
+        name: 'article-detail',
+        params: { id }
+      })
     }
   },
   computed: {

@@ -29,7 +29,8 @@ import {
   Row,
   Notify,
   Badge,
-  Search
+  Search,
+  Divider
 } from 'vant'
 
 // 注册vant组件
@@ -54,6 +55,7 @@ Vue.use(Row)
 Vue.use(Notify)
 Vue.use(Badge)
 Vue.use(Search)
+Vue.use(Divider)
 
 Vue.config.productionTip = false
 
