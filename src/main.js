@@ -28,7 +28,8 @@ import {
   Col,
   Row,
   Notify,
-  Badge
+  Badge,
+  Search
 } from 'vant'
 
 // 注册vant组件
@@ -52,6 +53,7 @@ Vue.use(Col)
 Vue.use(Row)
 Vue.use(Notify)
 Vue.use(Badge)
+Vue.use(Search)
 
 Vue.config.productionTip = false
 

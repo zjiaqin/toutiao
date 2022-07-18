@@ -6,7 +6,12 @@
         <img src="../../assets/logo.png" alt="logo" class="logo" />
       </template>
       <template #right>
-        <van-icon name="search" size="18" color="white" />
+        <van-icon
+          name="search"
+          size="18"
+          color="white"
+          @click="$router.push('/search')"
+        />
       </template>
     </van-nav-bar>
     <!-- 频道列表栏 -->

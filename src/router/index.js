@@ -4,12 +4,14 @@ import Login from '@/views/Login/Login.vue'
 import Main from '@/views/Main/Main.vue'
 import Home from '@/views/Home/Home.vue'
 import User from '@/views/User/User.vue'
+import Search from '@/views/Search/Search.vue'
+import SearchResult from '@/views/SearchResult/SearchResult.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   // 登录的路由规则
-  { path: '/login', component: Login, name: 'Login' },
+  { path: '/login', component: Login, name: 'login' },
   // 主页的路由规则
   {
     path: '/',
@@ -19,6 +21,14 @@ const routes = [
       { path: 'home', component: Home, name: 'home' },
       { path: 'user', component: User, name: 'user' }
     ]
+  },
+  // 搜索页的路由规则
+  { path: '/search', component: Search, name: 'search' },
+  // 搜索结果页的路由规则
+  {
+    path: '/search/:kw',
+    component: SearchResult,
+    name: 'search-result'
   }
 ]
 

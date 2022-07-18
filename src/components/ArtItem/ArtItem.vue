@@ -38,6 +38,7 @@
             is-link
             title="基础用法"
             @click="show = true"
+            v-if="closable"
           />
         </div>
       </template>
@@ -87,6 +88,7 @@ import { dislikeArticleAPI, reportArticleAPI } from '@/api'
 import reports from '@/api/reports'
 export default {
   name: 'ArtItem',
+
   data() {
     return {
       // 动作面板参数
@@ -107,6 +109,11 @@ export default {
     article: {
       type: Object, // 数据类型
       required: true // 必填项
+    },
+    closable: {
+      type: Boolean,
+      // 默认值为 true，表示展示关闭按钮
+      default: true
     }
   },
   methods: {
