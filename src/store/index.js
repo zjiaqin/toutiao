@@ -75,5 +75,14 @@ export default new Vuex.Store({
       }
     }
   },
-  modules: {}
+  modules: {},
+  getters: {
+    userAvatar(state) {
+      let imgSrc = 'https://img.yzcdn.cn/vant/cat.jpeg'
+      if (state.userInfo.photo) {
+        imgSrc = state.userInfo.photo
+      }
+      return imgSrc
+    }
+  }
 })

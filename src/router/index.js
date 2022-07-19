@@ -8,8 +8,21 @@ import Search from '@/views/Search/Search.vue'
 import SearchResult from '@/views/SearchResult/SearchResult.vue'
 import ArticleDetail from '@/views/ArticleDetail/ArticleDetail.vue'
 import UserEdit from '@/views/UserEdit/UserEdit.vue'
+import Chat from '@/views/Chat/Chat.vue'
+import store from '@/store/'
 
 Vue.use(VueRouter)
+// 1. 将 VueRouter 本身提供的 $router.push 方法转存到常量中
+const originalPush = VueRouter.prototype.push
+// 2. 自定义 $router.push 方法，在内部调用原生的 originalPush 方法进行路由跳转；并通过 .catch 捕获错误
+VueRouter.prototype.push = function push(location, onResolve, onReject) {
+  if (onResolve || onReject) {
+    return originalPush.call(this, location, onResolve, onReject)
+  }
+
+  // 通过 .catch 捕获错误
+  return originalPush.call(this, location).catch((err) => err)
+}
 
 const routes = [
   // 登录的路由规则
@@ -20,7 +33,7 @@ const routes = [
     component: Main,
     // path为空字符串的子路由规则
     children: [
-      { path: 'home', component: Home, name: 'home' },
+      { path: '', component: Home, name: 'home' },
       { path: 'user', component: User, name: 'user' }
     ]
   },
@@ -37,11 +50,25 @@ const routes = [
     component: ArticleDetail,
     name: 'article-detail'
   },
-  { path: '/user/edit', component: UserEdit, name: 'user-edit' }
+  { path: '/user/edit', component: UserEdit, name: 'user-edit' },
+  { path: '/chat', component: Chat, name: 'chat' }
 ]
 
 const router = new VueRouter({
   routes
+})
+const pagePathArr = ['/user', '/user/edit']
+router.beforeEach((to, from, next) => {
+  if (pagePathArr.indexOf(to.path) !== -1) {
+    const tokenStr = store.state.tokenInfo.token
+    if (tokenStr) {
+      next()
+    } else {
+      next(`/login?pre=${to.fullPath}`)
+    }
+  } else {
+    next()
+  }
 })
 
 export default router
