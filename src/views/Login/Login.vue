@@ -65,7 +65,6 @@ export default {
 
         // 登录成功跳转到主页
         const navPath = this.$route.query.pre || '/'
-        console.log(navPath)
         this.$router.replace(navPath)
       } catch (err) {
         if (err.response.status === 400) {

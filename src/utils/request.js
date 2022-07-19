@@ -1,6 +1,7 @@
 import { Toast } from 'vant'
 import axios from 'axios'
 import store from '@/store/'
+import router from '@/router'
 const instance = axios.create({ baseURL: 'http://www.liulongbin.top:8000' })
 // 请求拦截器
 // 注意：在我们的项目中，是基于 instance 实例来发起 ajax 请求的，因此一定要为 instance 实例绑定请求拦截器
@@ -41,6 +42,13 @@ instance.interceptors.response.use(
     return response
   },
   (error) => {
+    Toast.clear()
+    if (error.response && error.response.status === 401) {
+      console.log('token 过期啦')
+      store.commit('cleanState')
+      router.replace(`/login?pre=${router.currentRoute.fullPath}`)
+    }
+
     return Promise.reject(error)
   }
 )
