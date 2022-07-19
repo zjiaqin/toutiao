@@ -30,7 +30,11 @@ import {
   Notify,
   Badge,
   Search,
-  Divider
+  Divider,
+  Tag,
+  Dialog,
+  Image as VanImage,
+  DatetimePicker
 } from 'vant'
 
 // 注册vant组件
@@ -56,6 +60,10 @@ Vue.use(Notify)
 Vue.use(Badge)
 Vue.use(Search)
 Vue.use(Divider)
+Vue.use(Tag)
+Vue.use(Dialog)
+Vue.use(VanImage)
+Vue.use(DatetimePicker)
 
 Vue.config.productionTip = false
 

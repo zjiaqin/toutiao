@@ -1,4 +1,10 @@
-import { Login } from './userAPI'
+import {
+  Login,
+  getUserInfo,
+  getUserProfile,
+  updateUserProfile,
+  updateUserAvatar
+} from './userAPI'
 import {
   getUserChannel,
   getArtList,
@@ -37,3 +43,7 @@ export const getCmtListAPI = getCmtList
 export const addLikeCmtAPI = addLikeCmt
 export const delLikeCmtAPI = delLikeCmt
 export const pubCommentAPI = pubComment
+export const getUserInfoAPI = getUserInfo
+export const getUserProfileAPI = getUserProfile
+export const updateUserProfileAPI = updateUserProfile
+export const updateUserAvatarAPI = updateUserAvatar
