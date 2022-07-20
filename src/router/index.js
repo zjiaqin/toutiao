@@ -1,15 +1,28 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Login from '@/views/Login/Login.vue'
-import Main from '@/views/Main/Main.vue'
-import Home from '@/views/Home/Home.vue'
-import User from '@/views/User/User.vue'
-import Search from '@/views/Search/Search.vue'
-import SearchResult from '@/views/SearchResult/SearchResult.vue'
-import ArticleDetail from '@/views/ArticleDetail/ArticleDetail.vue'
-import UserEdit from '@/views/UserEdit/UserEdit.vue'
-import Chat from '@/views/Chat/Chat.vue'
+
 import store from '@/store/'
+// import Login from '@/views/Login/Login.vue'
+const Login = () => import('@/views/Login/Login.vue')
+// import Main from '@/views/Main/Main.vue'
+const Main = () => import('@/views/Main/Main.vue')
+// import Home from '@/views/Home/Home.vue'
+const Home = () => import('@/views/Home/Home.vue')
+// import User from '@/views/User/User.vue'
+const User = () => import('@/views/User/User.vue')
+// import Search from '@/views/Search/Search.vue'
+const Search = () => import('@/views/Search/Search.vue')
+// import SearchResult from '@/views/SearchResult/SearchResult.vue'
+const SearchResult = () => import('@/views/SearchResult/SearchResult.vue')
+
+// import ArticleDetail from '@/views/ArticleDetail/ArticleDetail.vue'
+const ArticleDetail = () => import('@/views/ArticleDetail/ArticleDetail.vue')
+
+// import UserEdit from '@/views/UserEdit/UserEdit.vue'
+const UserEdit = () => import('@/views/UserEdit/UserEdit.vue')
+
+// import Chat from '@/views/Chat/Chat.vue'
+const Chat = () => import('@/views/Chat/Chat.vue')
 
 Vue.use(VueRouter)
 // 1. 将 VueRouter 本身提供的 $router.push 方法转存到常量中
