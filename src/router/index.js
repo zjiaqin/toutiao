@@ -33,7 +33,12 @@ const routes = [
     component: Main,
     // path为空字符串的子路由规则
     children: [
-      { path: '', component: Home, name: 'home' },
+      {
+        path: '',
+        component: Home,
+        name: 'home',
+        meta: { isRecord: true, top: 0 }
+      },
       { path: 'user', component: User, name: 'user' }
     ]
   },
@@ -43,12 +48,16 @@ const routes = [
   {
     path: '/search/:kw',
     component: SearchResult,
-    name: 'search-result'
+    name: 'search-result',
+    props: true,
+    meta: { isRecord: true, top: 0 }
   },
   {
     path: '/article/:id',
     component: ArticleDetail,
-    name: 'article-detail'
+    name: 'article-detail',
+    props: true,
+    meta: { isRecord: true, top: 0 }
   },
   { path: '/user/edit', component: UserEdit, name: 'user-edit' },
   { path: '/chat', component: Chat, name: 'chat' }
@@ -70,5 +79,12 @@ router.beforeEach((to, from, next) => {
     next()
   }
 })
-
+// 全局后置钩子
+router.afterEach((to, from) => {
+  if (to.meta.isRecord) {
+    setTimeout(() => {
+      window.scrollTo(0, to.meta.top)
+    }, 0)
+  }
+})
 export default router

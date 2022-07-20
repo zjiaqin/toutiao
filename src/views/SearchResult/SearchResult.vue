@@ -29,7 +29,11 @@ import { getSearchResultAPI } from '@/api'
 import ArtItem from '@/components/ArtItem/ArtItem.vue'
 export default {
   name: 'SearchResult',
-
+  props: {
+    kw: {
+      type: String
+    }
+  },
   data() {
     return {
       page: 1,
@@ -44,8 +48,7 @@ export default {
     // 获取搜索的结果
     async initSearchList() {
       // 调用 API 接口
-      const kw = this.$route.params.kw
-      const { data: res } = await getSearchResultAPI(kw, this.page)
+      const { data: res } = await getSearchResultAPI(this.kw, this.page)
       if (res.message === 'OK') {
         // 1. 拼接数据：“旧数据”在前，“新数据”在后
         this.searchList = [...this.searchList, ...res.data.results]
@@ -68,6 +71,24 @@ export default {
   },
   created() {
     this.initSearchList()
+  },
+  watch: {
+    kw() {
+      // 1. 重置关键数据
+      this.page = 1
+      this.searchList = []
+      this.loading = false
+      this.finished = false
+
+      // 2. 请求数据
+      this.initSearchList()
+    }
+  },
+  beforeRouteLeave(to, from, next) {
+    from.meta.top = window.scrollY
+    setTimeout(() => {
+      next()
+    }, 0)
   }
 }
 </script>

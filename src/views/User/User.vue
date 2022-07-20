@@ -89,6 +89,9 @@ export default {
   },
   computed: {
     ...mapState(['userInfo'])
+  },
+  activated() {
+    this.initUserInfo()
   }
 }
 </script>

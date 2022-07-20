@@ -83,6 +83,8 @@
 
 <script>
 import ArtCmt from '@/components/ArtCmt/ArtCmt.vue'
+// 导入 highlight.js 模块
+import hljs from 'highlight.js'
 import {
   getArticleDetailAPI,
   followUserAPI,
@@ -92,10 +94,14 @@ import {
 } from '@/api'
 export default {
   name: 'ArticleDetail',
+  props: {
+    id: {
+      type: String
+    }
+  },
   data() {
     return {
-      article: null,
-      id: this.$route.params.id
+      article: null
     }
   },
   components: {
@@ -103,8 +109,7 @@ export default {
   },
   methods: {
     async initArticle() {
-      const id = this.$route.params.id
-      const { data: res } = await getArticleDetailAPI(id)
+      const { data: res } = await getArticleDetailAPI(this.id)
       if (res.message === 'OK') {
         this.article = res.data
       }
@@ -140,6 +145,26 @@ export default {
   },
   created() {
     this.initArticle()
+  },
+  watch: {
+    id() {
+      this.article = null
+      this.initArticle()
+    }
+  },
+  beforeRouteLeave(to, from, next) {
+    from.meta.top = window.scrollY
+    setTimeout(() => {
+      next()
+    }, 0)
+  },
+  // 1. 当组件的 DOM 更新完毕之后
+  updated() {
+    // 2. 判断是否有文章的内容
+    if (this.article) {
+      // 3. 对文章的内容进行高亮处理
+      hljs.highlightAll()
+    }
   }
 }
 </script>

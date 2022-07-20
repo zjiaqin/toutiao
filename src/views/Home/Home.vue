@@ -15,7 +15,13 @@
       </template>
     </van-nav-bar>
     <!-- 频道列表栏 -->
-    <van-tabs v-model="active" sticky offset-top="1.22666667rem">
+    <van-tabs
+      v-model="active"
+      sticky
+      offset-top="1.22666667rem"
+      :before-change="beforeTabsChange"
+      @change="onTabsChange"
+    >
       <van-tab :title="obj.name" v-for="obj in userChannel" :key="obj.id">
         <!-- 在每一个用户频道下，渲染出对应的“文章列表组件” -->
         <art-list :channelId="obj.id"> </art-list>
@@ -129,6 +135,7 @@ import {
   getAllChannelAPI,
   updateUserChannelAPI
 } from '@/api'
+const nameToTop = {}
 export default {
   name: 'Home',
   data() {
@@ -194,6 +201,23 @@ export default {
         this.active = index
         this.show = false
       }
+    },
+    // tabs 发生切换之前，触发此方法
+    beforeTabsChange() {
+      // 把当前"频道名称"对应的"滚动条位置"记录到 nameToTop 对象中
+      const name = this.userChannel[this.active].name
+      nameToTop[name] = window.scrollY
+
+      // return true 表示允许进行标签页的切换
+      return true
+    },
+    // 当 tabs 切换完毕之后，触发此方法
+    onTabsChange() {
+      // 等 DOM 更新完毕之后，根据记录的"滚动条位置"，调用 window.scrollTo() 方法进行滚动
+      this.$nextTick(() => {
+        const name = this.userChannel[this.active].name
+        window.scrollTo(0, nameToTop[name] || 0)
+      })
     }
   },
   created() {
@@ -217,6 +241,10 @@ export default {
         return false
       })
     }
+  },
+  beforeRouteLeave(to, from, next) {
+    from.meta.top = window.scrollY
+    next()
   }
 }
 </script>
